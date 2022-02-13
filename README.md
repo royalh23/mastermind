@@ -1,0 +1,1 @@
+This is a Mastermind game project made with Ruby. The player plays against a computer and tries to break the code that the computer has made in 12 turns and vice versa.
