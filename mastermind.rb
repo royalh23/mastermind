@@ -29,6 +29,7 @@ class Mastermind
            '   Clues: 🔴 ⚪ ⚪'
 
       # Computer randomly selects a 4-color code
+      code = Computer.new
       break
     end
   end
