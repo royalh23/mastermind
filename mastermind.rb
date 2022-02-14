@@ -17,7 +17,7 @@ class Mastermind
       puts "\nAs you can see, there can be more than one of the same color."
       puts "The #{'codebreaker'.gray.bold} attempts to guess the code in 12 " \
           'or fewer turns.'
-      puts 'After each guess, clues will be given to provide hints.'
+      puts 'After each guess, clues will be given in the form of colors.'
       puts "\n🔴 means you have one correct color in the correct position."
       puts "\n⚪ means you have one correct color in the wrong position."
       puts "\n#{'Note'.underline.bold} that the clues are in no particular " \
@@ -27,6 +27,8 @@ class Mastermind
       puts "\nCode and clues example:"
       puts "\n#{'  2  '.bg_green} #{'  4  '.bg_blue} #{'  6  '.bg_cyan} #{'  2  '.bg_green}" \
            '   Clues: 🔴 ⚪ ⚪'
+
+      # Computer randomly selects a 4-color code
       break
     end
   end
