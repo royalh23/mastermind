@@ -17,7 +17,7 @@ class Mastermind
       puts "\nAs you can see, there can be more than one of the same color."
       puts "The #{'codebreaker'.gray.bold} attempts to guess the code in 12 " \
           'or fewer turns.'
-      puts 'After each guess, clues will be updated to provide hints.'
+      puts 'After each guess, clues will be given to provide hints.'
       puts "\n🔴 means you have one correct color in the correct position."
       puts "\n⚪ means you have one correct color in the wrong position."
       puts "\n#{'Note'.underline.bold} that the clues are in no particular " \
