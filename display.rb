@@ -43,5 +43,7 @@ module Display
           '   Clues: 🔴 ⚪ ⚪'
   end
 
-  
+  def display_starting_of_game
+    puts "\nThe computer has made the code. Good luck!"
+  end
 end
