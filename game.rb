@@ -13,13 +13,13 @@ class Game
     explain_game
     @computer.make_code
     display_starting_of_game
-    puts "\nTurn 1: Type in four numbers to guess the code:"
     get_guess
     p @computer.code
     p @guessed_code
   end
 
   def get_guess
+    display_prompt_for_guess(1)
     while @human.make_guess
       # Store the guess in an array and turn all the elements into integer
       @guessed_code = @human.guess.split('')
@@ -33,5 +33,4 @@ class Game
       end
     end
   end
-
 end

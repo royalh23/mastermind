@@ -46,4 +46,8 @@ module Display
   def display_starting_of_game
     puts "\nThe computer has made the code. Good luck!"
   end
+
+  def display_prompt_for_guess(turn)
+    puts "\nTurn #{turn}: Type in four numbers to guess the code:"
+  end
 end
