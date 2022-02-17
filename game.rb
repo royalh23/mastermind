@@ -25,7 +25,7 @@ class Game
       @guessed_code.map! { |number| number.to_i }
 
       # Check if the guess contains 4 digits
-      if @guessed_code.length != 4 || !@guessed_code.all?(Integer) || @guessed_code.include?(0)
+      if @guessed_code.length != 4 || !@guessed_code.all?(Integer) || !@guessed_code.all? { |n| (1..6).include?(n) }
         display_warning
       else
         break
@@ -35,9 +35,10 @@ class Game
 
   def display_user_guess
     colors = []
+    clues = []
     match_colors(colors)
     puts "\n"
-    puts colors.join(' ')
+    puts "#{colors.join(' ')}  Clues: #{clues}"
   end
 
   def match_colors(colors)
