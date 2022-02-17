@@ -14,8 +14,7 @@ class Game
     @computer.make_code
     display_starting_of_game
     get_guess
-    p @computer.code
-    p @guessed_code
+    display_user_guess
   end
 
   def get_guess
@@ -27,9 +26,35 @@ class Game
 
       # Check if the guess contains 4 digits
       if @guessed_code.length != 4 || !@guessed_code.all?(Integer) || @guessed_code.include?(0)
-        puts 'Your guess should only be 4 digits between 1 and 6, inclusive.'.red
+        display_warning
       else
         break
+      end
+    end
+  end
+
+  def display_user_guess
+    colors = []
+    match_colors(colors)
+    puts "\n"
+    puts colors.join(' ')
+  end
+
+  def match_colors(colors)
+    @guessed_code.each do |number|
+      case number
+      when 1
+        colors.push('  1  '.bg_red)
+      when 2
+        colors.push('  2  '.bg_green)
+      when 3
+        colors.push('  3  '.bg_brown)
+      when 4
+        colors.push('  4  '.bg_blue)
+      when 5
+        colors.push('  5  '.bg_magenta)
+      when 6
+        colors.push('  6  '.bg_cyan)
       end
     end
   end
