@@ -37,8 +37,23 @@ class Game
     colors = []
     clues = []
     match_colors(colors)
+
+    included_numbers = [nil, nil, nil, nil]
+    @computer.code.each_with_index do |number, index|
+      if @guessed_code.include?(number)
+        if index == @guessed_code.index(number)
+          included_numbers[index] = number
+        else
+          included_numbers[@guessed_code.index(number)] = number
+        end
+      else
+        next
+      end
+    end
+
     puts "\n"
-    puts "#{colors.join(' ')}  Clues: #{clues}"
+    puts "Computer code: #{@computer.code}"
+    puts "#{colors.join(' ')}  Clues: #{included_numbers}"
   end
 
   def match_colors(colors)
