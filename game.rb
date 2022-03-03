@@ -13,12 +13,16 @@ class Game
     explain_game
     @computer.make_code
     display_starting_of_game
-    get_guess
+    get_guess(1)
     display_user_guess
+    if @computer.code == @guessed_code
+      puts "You broke the code. Congratulations!"
+    end
+
   end
 
-  def get_guess
-    display_prompt_for_guess(1)
+  def get_guess(n)
+    display_prompt_for_guess(n)
     while @human.make_guess
       # Store the guess in an array and turn all the elements into integer
       @guessed_code = @human.guess.split('')
@@ -37,14 +41,14 @@ class Game
     colors = []
     clues = []
     match_colors(colors)
-
-    included_numbers = [nil, nil, nil, nil]
+    trial_code = @guessed_code
     @computer.code.each_with_index do |number, index|
-      if @guessed_code.include?(number)
-        if index == @guessed_code.index(number)
-          included_numbers[index] = number
+      if trial_code.include?(number)
+        if number == trial_code[index]
+          clues.push('🔴')
+          trial_code[index] = nil
         else
-          included_numbers[@guessed_code.index(number)] = number
+          clues.push('⚪')
         end
       else
         next
@@ -53,7 +57,7 @@ class Game
 
     puts "\n"
     puts "Computer code: #{@computer.code}"
-    puts "#{colors.join(' ')}  Clues: #{included_numbers}"
+    puts "#{colors.join(' ')}  Clues: #{clues.join(' ')}"
   end
 
   def match_colors(colors)
