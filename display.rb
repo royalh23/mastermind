@@ -48,7 +48,7 @@ module Display
   end
 
   def display_prompt_for_guess(turn)
-    puts "\n#{'Turn'.bold} #{turn.to_s.bold}: Type in four numbers (between 1 and 6, inclusive) to guess the code:"
+    puts "\n#{'Turn'.bold} #{(turn + 1).to_s.bold}: Type in four numbers (between 1 and 6, inclusive) to guess the code:"
   end
 
   def display_warning

@@ -7,18 +7,26 @@ class Game
   def initialize
     @computer = Computer.new
     @human = Human.new
+    @game_won = false
   end
 
   def play
     explain_game
     @computer.make_code
     display_starting_of_game
-    get_guess(1)
-    display_user_guess
-    if @computer.code == @guessed_code
-      puts "You broke the code. Congratulations!"
+    12.times do |turn|
+      get_guess(turn)
+      display_user_guess
+      if @computer.code == @guessed_code
+        puts 'You broke the code. Congratulations!'
+        @game_won = true
+        break
+      end
     end
-
+    if @game_won == false
+      puts "\nGame over. Here is the code you were trying to break:"
+      puts "#{@computer.code}"
+    end
   end
 
   def get_guess(n)
@@ -41,12 +49,18 @@ class Game
     colors = []
     clues = []
     match_colors(colors)
-    trial_code = @guessed_code
+    set_clues(clues)
+    puts "\n"
+    puts "#{colors.join(' ')}  Clues: #{clues.shuffle!.join(' ')}"
+  end
+
+  def set_clues(clues)
+    @trial_code = @guessed_code.clone
     @computer.code.each_with_index do |number, index|
-      if trial_code.include?(number)
-        if number == trial_code[index]
+      if @trial_code.include?(number)
+        if number == @trial_code[index]
           clues.push('🔴')
-          trial_code[index] = nil
+          @trial_code[index] = nil
         else
           clues.push('⚪')
         end
@@ -54,10 +68,6 @@ class Game
         next
       end
     end
-
-    puts "\n"
-    puts "Computer code: #{@computer.code}"
-    puts "#{colors.join(' ')}  Clues: #{clues.join(' ')}"
   end
 
   def match_colors(colors)
