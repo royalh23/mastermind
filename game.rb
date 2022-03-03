@@ -14,18 +14,21 @@ class Game
     explain_game
     @computer.make_code
     display_starting_of_game
+    ask_turns
+  end
+
+  def ask_turns
     12.times do |turn|
       get_guess(turn)
       display_user_guess
       if @computer.code == @guessed_code
-        puts 'You broke the code. Congratulations!'
+        display_winning_message
         @game_won = true
         break
       end
     end
     if @game_won == false
-      puts "\nGame over. Here is the code you were trying to break:"
-      puts "#{@computer.code}"
+      display_game_over_message(@colors)
     end
   end
 
@@ -46,23 +49,22 @@ class Game
   end
 
   def display_user_guess
-    colors = []
-    clues = []
-    match_colors(colors)
-    set_clues(clues)
-    puts "\n"
-    puts "#{colors.join(' ')}  Clues: #{clues.shuffle!.join(' ')}"
+    @colors = []
+    @clues = []
+    match_colors(@colors)
+    set_clues(@clues)
+    display_round_output(@colors, @clues)
   end
 
   def set_clues(clues)
-    @trial_code = @guessed_code.clone
+    trial_code = @guessed_code.clone
     @computer.code.each_with_index do |number, index|
-      if @trial_code.include?(number)
-        if number == @trial_code[index]
-          clues.push('🔴')
-          @trial_code[index] = nil
+      if trial_code.include?(number)
+        if number == trial_code[index]
+          @clues.push('🔴')
+          trial_code[index] = nil
         else
-          clues.push('⚪')
+          @clues.push('⚪')
         end
       else
         next
@@ -74,17 +76,17 @@ class Game
     @guessed_code.each do |number|
       case number
       when 1
-        colors.push('  1  '.bg_red)
+        @colors.push('  1  '.bg_red)
       when 2
-        colors.push('  2  '.bg_green)
+        @colors.push('  2  '.bg_green)
       when 3
-        colors.push('  3  '.bg_brown)
+        @colors.push('  3  '.bg_brown)
       when 4
-        colors.push('  4  '.bg_blue)
+        @colors.push('  4  '.bg_blue)
       when 5
-        colors.push('  5  '.bg_magenta)
+        @colors.push('  5  '.bg_magenta)
       when 6
-        colors.push('  6  '.bg_cyan)
+        @colors.push('  6  '.bg_cyan)
       end
     end
   end

@@ -54,4 +54,18 @@ module Display
   def display_warning
     puts 'Your guess should only be 4 digits between 1 and 6, inclusive.'.red
   end
+
+  def display_winning_message
+    puts 'You broke the code. Congratulations!'
+  end
+
+  def display_game_over_message(colors)
+    puts "\nGame is over. Here is the code you were trying to break:"
+    puts "#{@colors.join(' ')}"
+  end
+
+  def display_round_output(colors, clues)
+    puts "\n"
+    puts "#{@colors.join(' ')}  Clues: #{@clues.shuffle!.join(' ')}"
+  end
 end
