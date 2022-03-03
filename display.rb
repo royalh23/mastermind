@@ -59,13 +59,14 @@ module Display
     puts 'You broke the code. Congratulations!'
   end
 
-  def display_game_over_message(colors)
+  def display_game_over_message
     puts "\nGame is over. Here is the code you were trying to break:"
-    puts "#{@colors.join(' ')}"
+    @code = []
+    match_colors(@computer.code, @code)
+    puts "\n#{@code.join(' ')}"
   end
 
   def display_round_output(colors, clues)
-    puts "\n"
-    puts "#{@colors.join(' ')}  Clues: #{@clues.shuffle!.join(' ')}"
+    puts "\n#{colors.join(' ')}  Clues: #{clues.shuffle!.join(' ')}"
   end
 end
