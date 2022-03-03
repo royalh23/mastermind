@@ -56,11 +56,11 @@ class Game
     @colors = []
     @clues = []
     match_colors(@guessed_code, @colors)
-    set_clues(@clues)
+    set_clues
     display_round_output(@colors, @clues)
   end
 
-  def set_clues(clues)
+  def set_clues
     trial_code = @guessed_code.clone
     @computer.code.each_with_index do |number, index|
       if trial_code.include?(number)
