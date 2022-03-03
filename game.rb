@@ -36,8 +36,8 @@ class Game
     end
   end
 
-  def get_guess(n)
-    display_prompt_for_guess(n)
+  def get_guess(turn)
+    display_prompt_for_guess(turn)
     while @human.make_guess
       # Store the guess in an array and turn all the elements into integer
       @guessed_code = @human.guess.split('')
