@@ -55,21 +55,24 @@ class Game
   def display_user_guess
     @colors = []
     @clues = []
+    @duplicates = []
     match_colors(@guessed_code, @colors)
     set_clues
     display_round_output(@colors, @clues)
   end
 
   def set_clues
-    trial_code = @guessed_code.clone
-    @computer.code.each_with_index do |number, index|
-      if trial_code.include?(number)
-        if number == trial_code[index]
+    @guessed_code.each_with_index do |number, index|
+      if @computer.code.include?(number)
+        if number == @duplicates[-1]
+          @clues.pop
+        end
+        if @computer.code[index] == number
           @clues.push('🔴')
-          trial_code[index] = nil
         else
           @clues.push('⚪')
         end
+        @duplicates.push(number)
       else
         next
       end
