@@ -12,11 +12,29 @@ class Game
 
   def play
     explain_game
+    display_gameplay_choice_question
+    while (answer = gets.chomp)
+      case answer
+      when '1'
+        play_as_codebreaker
+        break
+      when '2'
+        play_as_codemaker
+        break
+      else
+        puts 'Please enter a valid choice.'
+      end
+    end
+  end
+
+  def play_as_codebreaker
     @computer.make_code
     display_starting_of_game
     ask_turns
     check_game_end_state
   end
+
+  def play_as_codemaker; end
 
   def ask_turns
     12.times do |turn|

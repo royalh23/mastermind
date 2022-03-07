@@ -43,6 +43,11 @@ module Display
           '   Clues: 🔴 ⚪ ⚪'
   end
 
+  def display_gameplay_choice_question
+    puts "\nWould you like to be the codebreaker or the codemaker?"
+    puts '(Type in 1 to be the codebreaker and 2 to be the codemaker)'
+  end
+
   def display_starting_of_game
     puts "\nThe computer has made the code. Good luck!"
   end
