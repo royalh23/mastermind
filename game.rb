@@ -55,7 +55,6 @@ class Game
   def display_user_guess
     @colors = []
     @clues = []
-    @duplicates = []
     match_colors(@guessed_code, @colors)
     set_clues
     display_round_output(@colors, @clues)
@@ -65,17 +64,12 @@ class Game
     trial_code = @computer.code.clone
     @guessed_code.each_with_index do |number, index|
       if trial_code.include?(number)
-        if number == @duplicates[-1]
-          @clues.pop
-        end
-        if trial_code[index] == number
+        if trial_code[trial_code.index(number)] == @guessed_code[trial_code.index(number)]
           @clues.push('🔴')
-          trial_code[index] = nil
         else
           @clues.push('⚪')
-          trial_code[trial_code.index(number)] = nil
         end
-        @duplicates.push(number)
+        trial_code[trial_code.index(number)] = nil
       else
         next
       end

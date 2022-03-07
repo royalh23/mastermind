@@ -56,7 +56,7 @@ module Display
   end
 
   def display_winning_message
-    puts 'You broke the code. Congratulations!'
+    puts "\nYou broke the code. Congratulations!"
   end
 
   def display_game_over_message
