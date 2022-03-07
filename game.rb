@@ -62,15 +62,18 @@ class Game
   end
 
   def set_clues
+    trial_code = @computer.code.clone
     @guessed_code.each_with_index do |number, index|
-      if @computer.code.include?(number)
+      if trial_code.include?(number)
         if number == @duplicates[-1]
           @clues.pop
         end
-        if @computer.code[index] == number
+        if trial_code[index] == number
           @clues.push('🔴')
+          trial_code[index] = nil
         else
           @clues.push('⚪')
+          trial_code[trial_code.index(number)] = nil
         end
         @duplicates.push(number)
       else
