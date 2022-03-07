@@ -80,7 +80,7 @@ class Game
 
   def set_clues
     trial_code = @computer.code.clone
-    @guessed_code.each_with_index do |number, index|
+    @guessed_code.each do |number|
       if trial_code.include?(number)
         if trial_code[trial_code.index(number)] == @guessed_code[trial_code.index(number)]
           @clues.push('🔴')
