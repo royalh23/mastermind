@@ -22,7 +22,7 @@ class Game
         play_as_codemaker
         break
       else
-        puts 'Please enter a valid choice.'
+        display_valid_choice_warning
       end
     end
   end
@@ -34,7 +34,24 @@ class Game
     check_game_end_state
   end
 
-  def play_as_codemaker; end
+  def play_as_codemaker
+    display_prompt_for_making_code
+    get_master_code
+  end
+
+  def get_master_code
+    while (m_code = gets.chomp)
+      # Store the guess in an array and turn all the elements into integer
+      @master_code = m_code.split('')
+      turn_into_integers(@master_code)
+
+      if code_is_false?(@master_code)
+        display_warning('code')
+      else
+        break
+      end
+    end
+  end
 
   def ask_turns
     12.times do |turn|
@@ -59,15 +76,22 @@ class Game
     while @human.make_guess
       # Store the guess in an array and turn all the elements into integer
       @guessed_code = @human.guess.split('')
-      @guessed_code.map! { |number| number.to_i }
+      turn_into_integers(@guessed_code)
 
-      # Check if the guess contains 4 digits
-      if @guessed_code.length != 4 || !@guessed_code.all?(Integer) || !@guessed_code.all? { |n| (1..6).include?(n) }
-        display_warning
+      if code_is_false?(@guessed_code)
+        display_warning('guess')
       else
         break
       end
     end
+  end
+
+  def turn_into_integers(code)
+    code.map! { |number| number.to_i }
+  end
+
+  def code_is_false?(code)
+    code.length != 4 || !code.all?(Integer) || !code.all? { |n| (1..6).include?(n) }
   end
 
   def display_user_guess

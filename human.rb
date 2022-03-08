@@ -1,6 +1,6 @@
 class Human
   attr_reader :guess
-  
+
   def initialize
     @guess = nil
   end

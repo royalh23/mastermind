@@ -56,8 +56,16 @@ module Display
     puts "\n#{'Turn'.bold} #{(turn + 1).to_s.bold}: Type in four numbers (between 1 and 6, inclusive) to guess the code:"
   end
 
-  def display_warning
-    puts 'Your guess should only be 4 digits between 1 and 6, inclusive.'.red
+  def display_prompt_for_making_code
+    puts "\nPlease make the code using four numbers (between 1 and 6, inclusive)."
+  end
+
+  def display_warning(warning_code)
+    puts "Your #{warning_code} should only be 4 digits between 1 and 6, inclusive.".red
+  end
+
+  def display_valid_choice_warning
+    puts 'Please enter a valid choice.'.red
   end
 
   def display_winning_message
