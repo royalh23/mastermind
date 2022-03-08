@@ -13,6 +13,10 @@ class Game
   def play
     explain_game
     display_gameplay_choice_question
+    select_game_mode
+  end
+
+  def select_game_mode
     while (answer = gets.chomp)
       case answer
       when '1'
