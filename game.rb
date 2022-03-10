@@ -41,6 +41,12 @@ class Game
   def play_as_codemaker
     display_prompt_for_making_code
     get_master_code
+    display_computer_starting_game
+    12.times do |turn|
+      @computer_guess_code = [6, 6, 6, 6]
+      display_guess(@master_code, @computer_guess_code)
+      break
+    end
   end
 
   def get_master_code
@@ -60,7 +66,7 @@ class Game
   def ask_turns
     12.times do |turn|
       get_guess(turn)
-      display_user_guess
+      display_guess(@computer.code, @guessed_code)
       if @computer.code == @guessed_code
         display_winning_message
         @game_won = true
@@ -98,19 +104,19 @@ class Game
     code.length != 4 || !code.all?(Integer) || !code.all? { |n| (1..6).include?(n) }
   end
 
-  def display_user_guess
+  def display_guess(made_code, guessed_code)
     @colors = []
     @clues = []
-    match_colors(@guessed_code, @colors)
-    set_clues
+    match_colors(guessed_code, @colors)
+    set_clues(made_code, guessed_code)
     display_round_output(@colors, @clues)
   end
 
-  def set_clues
-    trial_code = @computer.code.clone
-    @guessed_code.each do |number|
+  def set_clues(made_code, guessed_code)
+    trial_code = made_code.clone
+    guessed_code.each do |number|
       if trial_code.include?(number)
-        if trial_code[trial_code.index(number)] == @guessed_code[trial_code.index(number)]
+        if trial_code[trial_code.index(number)] == guessed_code[trial_code.index(number)]
           @clues.push('🔴')
         else
           @clues.push('⚪')

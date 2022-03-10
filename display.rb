@@ -82,4 +82,8 @@ module Display
   def display_round_output(colors, clues)
     puts "\n#{colors.join(' ')}  Clues: #{clues.shuffle!.join(' ')}"
   end
+
+  def display_computer_starting_game
+    puts "\nThe computer will start guessing the code you made."
+  end
 end
