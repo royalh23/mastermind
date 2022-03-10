@@ -1,11 +1,11 @@
 class Human
-  attr_reader :guess
+  attr_reader :code
 
   def initialize
-    @guess = nil
+    @code = nil
   end
 
-  def make_guess
-    @guess = gets.chomp
+  def make_code
+    @code = gets.chomp
   end
 end

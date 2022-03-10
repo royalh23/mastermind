@@ -7,6 +7,8 @@ class Game
   def initialize
     @computer = Computer.new
     @human = Human.new
+    @codebreaker_mode = false
+    @codemaker_mode = false
     @game_won = false
   end
 
@@ -20,9 +22,11 @@ class Game
     while (answer = gets.chomp)
       case answer
       when '1'
+        @codebreaker_mode = true
         play_as_codebreaker
         break
       when '2'
+        @codemaker_mode = true
         play_as_codemaker
         break
       else
@@ -42,17 +46,13 @@ class Game
     display_prompt_for_making_code
     get_master_code
     display_computer_starting_game
-    12.times do |turn|
-      @computer_guess_code = [6, 6, 6, 6]
-      display_guess(@master_code, @computer_guess_code)
-      break
-    end
+    ask_turns
   end
 
   def get_master_code
-    while (m_code = gets.chomp)
+    while (@human.make_code)
       # Store the guess in an array and turn all the elements into integer
-      @master_code = m_code.split('')
+      @master_code = @human.code.split('')
       turn_into_integers(@master_code)
 
       if code_is_false?(@master_code)
@@ -65,13 +65,25 @@ class Game
 
   def ask_turns
     12.times do |turn|
-      get_guess(turn)
-      display_guess(@computer.code, @guessed_code)
-      if @computer.code == @guessed_code
+      guess_code(turn)
+      if @made_code == @guessed_code
         display_winning_message
         @game_won = true
         break
       end
+    end
+  end
+
+  def guess_code(turn)
+    if @codebreaker_mode
+      get_guess(turn)
+      display_guess(@computer.code, @guessed_code)
+      @made_code = @computer.code
+    else
+      @computer.make_guess
+      display_guess(@master_code, @computer.code)
+      @made_code = @master_code
+      @guessed_code = @computer.code
     end
   end
 
@@ -83,9 +95,9 @@ class Game
 
   def get_guess(turn)
     display_prompt_for_guess(turn)
-    while @human.make_guess
+    while @human.make_code
       # Store the guess in an array and turn all the elements into integer
-      @guessed_code = @human.guess.split('')
+      @guessed_code = @human.code.split('')
       turn_into_integers(@guessed_code)
 
       if code_is_false?(@guessed_code)
