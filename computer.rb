@@ -9,7 +9,7 @@ class Computer
     @code = [rand(1..6), rand(1..6), rand(1..6), rand(1..6)]
   end
 
-  def make_guess
-    @code = [6, 6, 6, 6]
+  def make_guess(number)
+    @code = [number, number, number, number]
   end
 end

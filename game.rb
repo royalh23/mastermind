@@ -50,7 +50,7 @@ class Game
   end
 
   def get_master_code
-    while (@human.make_code)
+    while @human.make_code
       # Store the guess in an array and turn all the elements into integer
       @master_code = @human.code.split('')
       turn_into_integers(@master_code)
@@ -80,8 +80,28 @@ class Game
       display_guess(@computer.code, @guessed_code)
       @made_code = @computer.code
     else
-      @computer.make_guess
+      @computer.make_guess(6)
       display_guess(@master_code, @computer.code)
+      if @clues.empty?
+        @computer.make_guess(5)
+        display_guess(@master_code, @computer.code)
+        if @clues.empty?
+          @computer.make_guess(4)
+          display_guess(@master_code, @computer.code)
+          if @clues.empty?
+            @computer.make_guess(3)
+            display_guess(@master_code, @computer.code)
+            if @clues.empty?
+              @computer.make_guess(2)
+              display_guess(@master_code, @computer.code)
+              if @clues.empty?
+                @computer.make_guess(1)
+                display_guess(@master_code, @computer.code)
+              end
+            end
+          end
+        end
+      end
       @made_code = @master_code
       @guessed_code = @computer.code
     end
