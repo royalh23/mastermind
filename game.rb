@@ -83,18 +83,23 @@ class Game
       @computer.make_guess(6)
       display_guess(@master_code, @computer.code)
       if @clues.empty?
+        sleep 1
         @computer.make_guess(5)
         display_guess(@master_code, @computer.code)
         if @clues.empty?
+          sleep 1
           @computer.make_guess(4)
           display_guess(@master_code, @computer.code)
           if @clues.empty?
+            sleep 1
             @computer.make_guess(3)
             display_guess(@master_code, @computer.code)
             if @clues.empty?
+              sleep 1
               @computer.make_guess(2)
               display_guess(@master_code, @computer.code)
               if @clues.empty?
+                sleep 1
                 @computer.make_guess(1)
                 display_guess(@master_code, @computer.code)
               end
