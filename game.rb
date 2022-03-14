@@ -80,35 +80,19 @@ class Game
       display_guess(@computer.code, @guessed_code)
       @made_code = @computer.code
     else
-      @computer.make_guess(6)
-      display_guess(@master_code, @computer.code)
-      if @clues.empty?
-        sleep 1
-        @computer.make_guess(5)
-        display_guess(@master_code, @computer.code)
-        if @clues.empty?
-          sleep 1
-          @computer.make_guess(4)
-          display_guess(@master_code, @computer.code)
-          if @clues.empty?
-            sleep 1
-            @computer.make_guess(3)
-            display_guess(@master_code, @computer.code)
-            if @clues.empty?
-              sleep 1
-              @computer.make_guess(2)
-              display_guess(@master_code, @computer.code)
-              if @clues.empty?
-                sleep 1
-                @computer.make_guess(1)
-                display_guess(@master_code, @computer.code)
-              end
-            end
-          end
-        end
+      create_combinations_array
+    end
+  end
+
+  def create_combinations_array
+    combinations_clone = (1111..6666).to_a
+    combinations_clone.map! { |combination| combination.to_s.split('') }
+    @combinations = combinations_clone.clone
+    combinations_clone.each do |combination|
+      turn_into_integers(combination)
+      if combination.any? { |n| (7..9).include?(n) || n.zero? }
+        @combinations.delete(combination)
       end
-      @made_code = @master_code
-      @guessed_code = @computer.code
     end
   end
 
