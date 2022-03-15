@@ -81,6 +81,7 @@ class Game
       @made_code = @computer.code
     else
       create_combinations_array
+      @computer.make_guess(1, 1, 2, 2)
     end
   end
 
