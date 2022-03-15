@@ -46,6 +46,7 @@ class Game
     display_prompt_for_making_code
     get_master_code
     display_computer_starting_game
+    create_combinations_array
     ask_turns
   end
 
@@ -80,16 +81,18 @@ class Game
       display_guess(@computer.code, @guessed_code)
       @made_code = @computer.code
     else
-      create_combinations_array
       @computer.make_guess(1, 1, 2, 2)
+      display_guess(@master_code, @computer.code)
+      @made_code = @master_code
+      @guessed_code = @computer.code
     end
   end
 
   def create_combinations_array
-    combinations_clone = (1111..6666).to_a
-    combinations_clone.map! { |combination| combination.to_s.split('') }
-    @combinations = combinations_clone.clone
-    combinations_clone.each do |combination|
+    @combinations_clone = (1111..6666).to_a
+    @combinations_clone.map! { |combination| combination.to_s.split('') }
+    @combinations = @combinations_clone.clone
+    @combinations_clone.each do |combination|
       turn_into_integers(combination)
       if combination.any? { |n| (7..9).include?(n) || n.zero? }
         @combinations.delete(combination)
