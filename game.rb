@@ -1,4 +1,3 @@
-require 'pry-byebug'
 require_relative 'display'
 
 class Game
@@ -67,9 +66,8 @@ class Game
   def ask_turns
     12.times do |turn|
       guess_code(turn)
-      sleep 1
       if @made_code == @guessed_code
-        display_winning_message(@codebreaker_mode, @codemaker_mode)
+        display_winning_message(@codebreaker_mode)
         @game_won = true
         break
       end
@@ -89,6 +87,7 @@ class Game
       end
       display_prompt_for_turn(turn)
       display_guess(@master_code, @computer.code)
+      sleep 0.5
       reorganize_combinations_array
       @made_code = @master_code
       @guessed_code = @computer.code

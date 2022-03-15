@@ -72,7 +72,7 @@ module Display
     puts 'Please enter a valid choice.'.red
   end
 
-  def display_winning_message(codebreaker_mode, codemaker_mode)
+  def display_winning_message(codebreaker_mode)
     if codebreaker_mode
       puts "\nYou broke the code. Congratulations!"
     else
