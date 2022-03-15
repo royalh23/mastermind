@@ -56,6 +56,10 @@ module Display
     puts "\n#{'Turn'.bold} #{(turn + 1).to_s.bold}: Type in four numbers (between 1 and 6, inclusive) to guess the code:"
   end
 
+  def display_prompt_for_turn(turn)
+    puts "\n#{'Turn'.bold} #{(turn + 1).to_s.bold}:"
+  end
+
   def display_prompt_for_making_code
     puts "\nPlease make the code using four numbers (between 1 and 6, inclusive)."
   end
@@ -68,8 +72,12 @@ module Display
     puts 'Please enter a valid choice.'.red
   end
 
-  def display_winning_message
-    puts "\nYou broke the code. Congratulations!"
+  def display_winning_message(codebreaker_mode, codemaker_mode)
+    if codebreaker_mode
+      puts "\nYou broke the code. Congratulations!"
+    else
+      puts "\nThe computer broke the code!"
+    end
   end
 
   def display_game_over_message
