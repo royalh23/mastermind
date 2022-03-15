@@ -98,7 +98,7 @@ class Game
     combinations_clone.each do |combination|
       combination_clues = []
       set_clues(@computer.code, combination, combination_clues)
-      if combination_clues != @clues
+      if combination_clues != @clues && combination != @master_code
         @combinations.delete(combination)
       end
     end
