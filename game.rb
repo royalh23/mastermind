@@ -81,18 +81,34 @@ class Game
       display_guess(@computer.code, @guessed_code)
       @made_code = @computer.code
     else
-      @computer.make_guess(1, 1, 2, 2)
+      if @computer.code.nil?
+        @computer.make_guess([1, 1, 2, 2])
+      else
+        @computer.make_guess(@combinations.sample)
+      end
       display_guess(@master_code, @computer.code)
+      reorganize_combinations_array
       @made_code = @master_code
       @guessed_code = @computer.code
     end
   end
 
+  def reorganize_combinations_array
+    combinations_clone = @combinations.clone
+    combinations_clone.each do |combination|
+      combination_clues = []
+      set_clues(@computer.code, combination, combination_clues)
+      if combination_clues != @clues
+        @combinations.delete(combination)
+      end
+    end
+  end
+
   def create_combinations_array
-    @combinations_clone = (1111..6666).to_a
-    @combinations_clone.map! { |combination| combination.to_s.split('') }
-    @combinations = @combinations_clone.clone
-    @combinations_clone.each do |combination|
+    combinations_clone = (1111..6666).to_a
+    combinations_clone.map! { |combination| combination.to_s.split('') }
+    @combinations = combinations_clone.clone
+    combinations_clone.each do |combination|
       turn_into_integers(combination)
       if combination.any? { |n| (7..9).include?(n) || n.zero? }
         @combinations.delete(combination)
@@ -133,18 +149,18 @@ class Game
     @colors = []
     @clues = []
     match_colors(guessed_code, @colors)
-    set_clues(made_code, guessed_code)
+    set_clues(made_code, guessed_code, @clues)
     display_round_output(@colors, @clues)
   end
 
-  def set_clues(made_code, guessed_code)
+  def set_clues(made_code, guessed_code, clues)
     trial_code = made_code.clone
     guessed_code.each do |number|
       if trial_code.include?(number)
         if trial_code[trial_code.index(number)] == guessed_code[trial_code.index(number)]
-          @clues.push('🔴')
+          clues.push('🔴')
         else
-          @clues.push('⚪')
+          clues.push('⚪')
         end
         trial_code[trial_code.index(number)] = nil
       else

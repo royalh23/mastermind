@@ -80,7 +80,7 @@ module Display
   end
 
   def display_round_output(colors, clues)
-    puts "\n#{colors.join(' ')}  Clues: #{clues.shuffle!.join(' ')}"
+    puts "\n#{colors.join(' ')}  Clues: #{clues.shuffle.join(' ')}"
   end
 
   def display_computer_starting_game
