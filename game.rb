@@ -45,7 +45,7 @@ class Game
     display_prompt_for_making_code
     get_master_code
     display_computer_starting_game
-    create_combinations_array
+    @combinations = (1..6).to_a.repeated_permutation(4).to_a
     ask_turns
   end
 
@@ -100,18 +100,6 @@ class Game
       combination_clues = []
       set_clues(@computer.code, combination, combination_clues)
       if combination_clues != @clues && combination != @master_code
-        @combinations.delete(combination)
-      end
-    end
-  end
-
-  def create_combinations_array
-    combinations_clone = (1111..6666).to_a
-    combinations_clone.map! { |combination| combination.to_s.split('') }
-    @combinations = combinations_clone.clone
-    combinations_clone.each do |combination|
-      turn_into_integers(combination)
-      if combination.any? { |n| (7..9).include?(n) || n.zero? }
         @combinations.delete(combination)
       end
     end
